@@ -2,23 +2,31 @@
  * 544 - Contest Matches
  */
 const group = (arr) => {
+    if (arr.length === 0) {
+        return '()'
+    }
+    if (arr.length === 1) {
+        return arr[0]
+    }
     const newArr = []
-    const arrLen = arr.length
-    const lastIdx = arrLen - 1
-    const midIdx = Math.floor(arrLen / 2)
-    let i
-    for (i=0; i<midIdx; i++) {
-        newArr.push(`(${arr[i]},${arr[lastIdx-i]})`)
+    let startIdx = 0
+    let endIdx = arr.length - 1
+    while (startIdx < endIdx) {
+      newArr.push(`(${arr[startIdx]},${arr[endIdx]})`)
+      startIdx++
+      endIdx--
     }
-    console.log('---i =', i)
-    if (newArr.length * 2 < arrLen) {
-        newArr.push(`(${arr[i]})`)
-    }
-    return newArr
+    // console.log(newArr)
+    return(group(newArr))
 }
 
-let arr = [1,2,3,4,5,6,7,8]
-while (arr.length > 1) {
-    arr = group(arr)
+const compute = (n) => {
+    const arr = []
+    let i
+    for (i=1; i<=n; i++) {
+        arr.push(i)
+    }
+    return group(arr)
 }
-console.log(arr)
+
+console.log(compute(10)) // (((1,10),(5,6)),((2,9),(4,7)))
